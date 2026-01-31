@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Éclair Électricité | Électricien Professionnel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-black: #0A0A0A;
+            --color-dark: #141414;
+            --color-darker: #1A1A1A;
+            --color-gray: #2A2A2A;
+            --color-gray-light: #666666;
+            --color-white: #FFFFFF;
+            --color-yellow: #FFE600;
+            --color-yellow-dark: #CCBA00;
+            --color-yellow-glow: rgba(255, 230, 0, 0.15);
+            --font-main: 'Archivo', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-black);
+            color: var(--color-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Grid overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 230, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 230, 0, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, var(--color-black) 0%, transparent 100%);
+        }
+
+        nav.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-gray);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-bolt {
+            width: 40px;
+            height: 40px;
+            position: relative;
+        }
+
+        .logo-bolt svg {
+            width: 100%;
+            height: 100%;
+            color: var(--color-yellow);
+            filter: drop-shadow(0 0 10px rgba(255, 230, 0, 0.5));
+            animation: flicker 3s ease-in-out infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 10px rgba(255, 230, 0, 0.5)); }
+            50% { opacity: 0.9; filter: drop-shadow(0 0 15px rgba(255, 230, 0, 0.7)); }
+            52% { opacity: 1; }
+            54% { opacity: 0.85; }
+            56% { opacity: 1; }
+        }
+
+        .logo-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+        }
+
+        .logo-text span {
+            color: var(--color-yellow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-gray-light);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-yellow);
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--color-yellow);
+            color: var(--color-black);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+        }
+
+        .nav-cta:hover {
+            background: var(--color-white);
+            box-shadow: 0 0 30px rgba(255, 230, 0, 0.3);
+        }
+
+        .nav-cta svg {
+            width: 16px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            padding: 8rem 5% 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--color-yellow-glow) 0%, transparent 70%);
+            pointer-events: none;
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.7; }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: slideUp 0.8s ease forwards 0.2s;
+        }
+
+        .hero-tag-line {
+            width: 50px;
+            height: 2px;
+            background: var(--color-yellow);
+            box-shadow: 0 0 10px rgba(255, 230, 0, 0.5);
+        }
+
+        .hero-tag-text {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--color-yellow);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .hero-title {
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: slideUp 0.8s ease forwards 0.4s;
+        }
+
+        .hero-title span {
+            display: block;
+            color: var(--color-yellow);
+            text-shadow: 0 0 40px rgba(255, 230, 0, 0.4);
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--color-gray-light);
+            max-width: 550px;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: slideUp 0.8s ease forwards 0.6s;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: slideUp 0.8s ease forwards 0.8s;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.2rem 2.5rem;
+            background: var(--color-yellow);
+            color: var(--color-black);
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+        }
+
+        .btn-primary:hover {
+            background: var(--color-white);
+            box-shadow: 0 0 40px rgba(255, 230, 0, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.2rem 2.5rem;
+            background: transparent;
+            color: var(--color-white);
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid var(--color-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-yellow);
+            color: var(--color-yellow);
+        }
+
+        .hero-stats {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .stat-item {
+            text-align: right;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .stat-item:nth-child(1) { animation-delay: 1s; }
+        .stat-item:nth-child(2) { animation-delay: 1.2s; }
+        .stat-item:nth-child(3) { animation-delay: 1.4s; }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--color-yellow);
+            line-height: 1;
+            text-shadow: 0 0 30px rgba(255, 230, 0, 0.3);
+        }
+
+        .stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--color-gray-light);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 8rem 5%;
+            background: var(--color-dark);
+            position: relative;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-tag-line {
+            width: 30px;
+            height: 2px;
+            background: var(--color-yellow);
+        }
+
+        .section-tag-text {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--color-yellow);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+        }
+
+        .section-description {
+            max-width: 400px;
+            color: var(--color-gray-light);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--color-darker);
+            border: 1px solid var(--color-gray);
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--color-yellow);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            border-color: var(--color-yellow);
+            box-shadow: 0 0 30px rgba(255, 230, 0, 0.1);
+        }
+
+        .service-number {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--color-yellow);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 1.5rem;
+            color: var(--color-yellow);
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .service-text {
+            color: var(--color-gray-light);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Why Us Section */
+        .why-us {
+            padding: 8rem 5%;
+            background: var(--color-black);
+        }
+
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .why-us-content h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .why-us-content h2 span {
+            color: var(--color-yellow);
+        }
+
+        .why-us-text {
+            color: var(--color-gray-light);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--color-dark);
+            border-left: 3px solid var(--color-yellow);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: var(--color-darker);
+            transform: translateX(10px);
+        }
+
+        .feature-icon {
+            width: 24px;
+            color: var(--color-yellow);
+            flex-shrink: 0;
+        }
+
+        .feature-content h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+
+        .feature-content p {
+            font-size: 0.9rem;
+            color: var(--color-gray-light);
+        }
+
+        .why-us-visual {
+            position: relative;
+        }
+
+        .visual-card {
+            background: var(--color-dark);
+            border: 1px solid var(--color-gray);
+            padding: 3rem;
+            position: relative;
+        }
+
+        .visual-card::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--color-yellow);
+            z-index: -1;
+        }
+
+        .visual-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            color: var(--color-yellow);
+            filter: drop-shadow(0 0 20px rgba(255, 230, 0, 0.3));
+        }
+
+        .visual-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .visual-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .visual-stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--color-darker);
+        }
+
+        .visual-stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--color-yellow);
+        }
+
+        .visual-stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--color-gray-light);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Certifications */
+        .certifications {
+            padding: 4rem 5%;
+            background: var(--color-dark);
+            border-top: 1px solid var(--color-gray);
+            border-bottom: 1px solid var(--color-gray);
+        }
+
+        .certifications-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .cert-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+        .cert-item:hover {
+            opacity: 1;
+        }
+
+        .cert-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--color-yellow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        .cert-icon svg {
+            width: 24px;
+            color: var(--color-black);
+        }
+
+        .cert-text {
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 8rem 5%;
+            background: var(--color-black);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+        }
+
+        .contact-info h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info h2 span {
+            color: var(--color-yellow);
+        }
+
+        .contact-info > p {
+            color: var(--color-gray-light);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--color-dark);
+            border: 1px solid var(--color-gray);
+            transition: all 0.3s ease;
+        }
+
+        .contact-method:hover {
+            border-color: var(--color-yellow);
+        }
+
+        .contact-method-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--color-yellow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-method-icon svg {
+            width: 24px;
+            color: var(--color-black);
+        }
+
+        .contact-method-content h4 {
+            font-size: 0.8rem;
+            color: var(--color-gray-light);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-method-content span {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .contact-form-wrapper {
+            background: var(--color-dark);
+            border: 1px solid var(--color-gray);
+            padding: 3rem;
+        }
+
+        .contact-form-wrapper h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--color-gray-light);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 1rem;
+            background: var(--color-darker);
+            border: 1px solid var(--color-gray);
+            color: var(--color-white);
+            font-family: var(--font-main);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--color-yellow);
+            box-shadow: 0 0 20px rgba(255, 230, 0, 0.1);
+        }
+
+        .form-group textarea {
+            resize: none;
+            min-height: 120px;
+        }
+
+        .form-group select option {
+            background: var(--color-dark);
+        }
+
+        .contact-form button {
+            padding: 1.2rem 2.5rem;
+            background: var(--color-yellow);
+            color: var(--color-black);
+            font-family: var(--font-main);
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+        }
+
+        .contact-form button:hover {
+            background: var(--color-white);
+            box-shadow: 0 0 40px rgba(255, 230, 0, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-darker);
+            padding: 3rem 5%;
+            border-top: 1px solid var(--color-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .footer-logo svg {
+            width: 30px;
+            color: var(--color-yellow);
+        }
+
+        .footer-logo span {
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--color-gray-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-yellow);
+        }
+
+        .footer-copy {
+            font-size: 0.8rem;
+            color: var(--color-gray-light);
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .hero-stats { display: none; }
+            .why-us-grid { grid-template-columns: 1fr; }
+            .why-us-visual { display: none; }
+            .contact { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .section-header { flex-direction: column; align-items: flex-start; }
+            .form-row { grid-template-columns: 1fr; }
+            .certifications-content { gap: 2rem; }
+            footer { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <div class="logo-bolt">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+            </div>
+            <span class="logo-text">Éclair<span>Électricité</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">À Propos</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="tel:0156789012" class="nav-cta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+            </svg>
+            Urgence 24h/24
+        </a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-glow"></div>
+        <div class="hero-content">
+            <div class="hero-tag">
+                <div class="hero-tag-line"></div>
+                <span class="hero-tag-text">Électricien Certifié</span>
+            </div>
+            <h1 class="hero-title">L'ÉNERGIE<br><span>QUI VOUS CONNECTE</span></h1>
+            <p class="hero-description">Dépannage, installation et rénovation électrique. Intervention rapide par des professionnels certifiés pour tous vos projets, de l'urgence au sur-mesure.</p>
+            <div class="hero-cta">
+                <a href="tel:0156789012" class="btn-primary">
+                    Appeler maintenant
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                    </svg>
+                </a>
+                <a href="#services" class="btn-secondary">Nos services</a>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Années d'expérience</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">3K</div>
+                <div class="stat-label">Clients satisfaits</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Disponibilité</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="section-header">
+            <div>
+                <div class="section-tag">
+                    <div class="section-tag-line"></div>
+                    <span class="section-tag-text">Services</span>
+                </div>
+                <h2 class="section-title">NOS EXPERTISES</h2>
+            </div>
+            <p class="section-description">Des solutions électriques complètes pour particuliers et professionnels.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <span class="service-number">// 01</span>
+                <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+                <h3 class="service-title">Dépannage Urgent</h3>
+                <p class="service-text">Intervention rapide 24h/24 et 7j/7 pour toutes vos urgences électriques : coupures, courts-circuits, pannes.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-number">// 02</span>
+                <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                </svg>
+                <h3 class="service-title">Installation Neuve</h3>
+                <p class="service-text">Installation électrique complète pour constructions neuves, conformes aux normes NF C 15-100.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-number">// 03</span>
+                <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+                <h3 class="service-title">Rénovation</h3>
+                <p class="service-text">Mise aux normes et rénovation de votre installation électrique existante pour plus de sécurité.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-number">// 04</span>
+                <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                </svg>
+                <h3 class="service-title">Éclairage</h3>
+                <p class="service-text">Conception et installation de solutions d'éclairage intérieur et extérieur, LED, domotique.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-number">// 05</span>
+                <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+                </svg>
+                <h3 class="service-title">Tableau Électrique</h3>
+                <p class="service-text">Installation et mise à niveau de tableaux électriques avec protections adaptées.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-number">// 06</span>
+                <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                </svg>
+                <h3 class="service-title">Domotique</h3>
+                <p class="service-text">Solutions de maison connectée : contrôle à distance, automatisation, économies d'énergie.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="why-us">
+        <div class="why-us-grid">
+            <div class="why-us-content">
+                <div class="section-tag">
+                    <div class="section-tag-line"></div>
+                    <span class="section-tag-text">Pourquoi nous</span>
+                </div>
+                <h2>L'EXPERTISE AU SERVICE DE VOTRE <span>SÉCURITÉ</span></h2>
+                <p class="why-us-text">Depuis plus de 15 ans, Éclair Électricité met son savoir-faire au service des particuliers et professionnels. Notre équipe d'électriciens certifiés garantit des interventions sûres et conformes aux normes.</p>
+                <div class="features-list">
+                    <div class="feature-item">
+                        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                        <div class="feature-content">
+                            <h4>Certifié Qualifelec</h4>
+                            <p>Qualification professionnelle reconnue</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div class="feature-content">
+                            <h4>Intervention Rapide</h4>
+                            <p>Sur site en moins d'une heure</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div class="feature-content">
+                            <h4>Garantie Décennale</h4>
+                            <p>Travaux assurés et garantis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="why-us-visual">
+                <div class="visual-card">
+                    <svg class="visual-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                    </svg>
+                    <h3 class="visual-title">Notre Impact</h3>
+                    <div class="visual-stats">
+                        <div class="visual-stat">
+                            <div class="visual-stat-number">3000+</div>
+                            <div class="visual-stat-label">Interventions/an</div>
+                        </div>
+                        <div class="visual-stat">
+                            <div class="visual-stat-number">98%</div>
+                            <div class="visual-stat-label">Satisfaction</div>
+                        </div>
+                        <div class="visual-stat">
+                            <div class="visual-stat-number">< 1h</div>
+                            <div class="visual-stat-label">Temps moyen</div>
+                        </div>
+                        <div class="visual-stat">
+                            <div class="visual-stat-number">15</div>
+                            <div class="visual-stat-label">Techniciens</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="certifications">
+        <div class="certifications-content">
+            <div class="cert-item">
+                <div class="cert-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                    </svg>
+                </div>
+                <span class="cert-text">Qualifelec</span>
+            </div>
+            <div class="cert-item">
+                <div class="cert-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                </div>
+                <span class="cert-text">RGE</span>
+            </div>
+            <div class="cert-item">
+                <div class="cert-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                </div>
+                <span class="cert-text">Assurance Décennale</span>
+            </div>
+            <div class="cert-item">
+                <div class="cert-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
+                </div>
+                <span class="cert-text">NF C 15-100</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="contact-info">
+            <div class="section-tag">
+                <div class="section-tag-line"></div>
+                <span class="section-tag-text">Contact</span>
+            </div>
+            <h2>BRANCHEZ-VOUS <span>SUR NOUS</span></h2>
+            <p>Une panne ? Un projet ? Contactez-nous pour un devis gratuit ou une intervention d'urgence. Notre équipe est disponible 24h/24.</p>
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <div class="contact-method-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                    </div>
+                    <div class="contact-method-content">
+                        <h4>Téléphone</h4>
+                        <span>01 56 78 90 12</span>
+                    </div>
+                </div>
+                <div class="contact-method">
+                    <div class="contact-method-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <div class="contact-method-content">
+                        <h4>Email</h4>
+                        <span>contact@eclair-electricite.fr</span>
+                    </div>
+                </div>
+                <div class="contact-method">
+                    <div class="contact-method-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </div>
+                    <div class="contact-method-content">
+                        <h4>Adresse</h4>
+                        <span>78 Avenue de l'Industrie, 93100 Montreuil</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contact-form-wrapper">
+            <h3>Demande de Devis</h3>
+            <form class="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nom</label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone</label>
+                        <input type="tel" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Type d'intervention</label>
+                    <select>
+                        <option>Urgence / Dépannage</option>
+                        <option>Installation neuve</option>
+                        <option>Rénovation électrique</option>
+                        <option>Mise aux normes</option>
+                        <option>Éclairage</option>
+                        <option>Domotique</option>
+                        <option>Autre</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Description du projet</label>
+                    <textarea placeholder="Décrivez votre besoin..."></textarea>
+                </div>
+                <button type="submit">Envoyer ma demande</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+            <span>Éclair Électricité</span>
+        </div>
+        <div class="footer-links">
+            <a href="#">Mentions légales</a>
+            <a href="#">CGV</a>
+            <a href="#">Politique de confidentialité</a>
+        </div>
+        <div class="footer-copy">© 2024 Éclair Électricité - Tous droits réservés</div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Merci pour votre demande ! Nous vous recontacterons dans les plus brefs délais.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
